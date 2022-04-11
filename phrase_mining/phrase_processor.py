@@ -61,7 +61,7 @@ class PhraseProcessor(object):
                     if phrase == "":
                         begin_index = begin_index + 1
                         continue
-
+                    # TODO use defaultdict to let the code concise
                     # 存储phrase原始形式
                     gram_phrase_dict[phrase]["original_phrase"] = \
                         gram_phrase_dict.setdefault(phrase, {}).setdefault("original_phrase", original_phrase)
@@ -175,11 +175,11 @@ class PhraseProcessor(object):
 
         return phrase_word_vec_dict
 
-    def label_data(self, phrase_fea_dict, entity_type_dict):
+    def label_data(self, phrase_fea_dict, seed_entity_dict):
         """
         打标候选短语
         :param phrase_fea_dict: 候选短语及对应特征
-        :param entity_type_dict: 种子实体字典
+        :param seed_entity_dict: 种子实体字典
         :return:
         """
         LogUtil.logger.info("开始远程打标数据")
@@ -188,7 +188,7 @@ class PhraseProcessor(object):
         positive_phrase_dict = {}
         negative_phrase_dict = {}
         for phrase, fea_dict in phrase_fea_dict.items():
-            if phrase.replace(" ", "") in entity_type_dict:
+            if phrase.replace(" ", "") in seed_entity_dict:
                 positive_phrase_dict[phrase] = fea_dict
             else:
                 negative_phrase_dict[phrase] = fea_dict
