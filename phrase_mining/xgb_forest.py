@@ -105,6 +105,7 @@ class XgbForest(object):
         """
         LogUtil.logger.info("预测数据")
 
+        # Here label 1 is not used, just a format
         fea_data_list = self.read_feature(phrase_fea_dict, 1)
         x_data = np.array([_[1] for _ in fea_data_list])
 

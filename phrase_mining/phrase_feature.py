@@ -21,6 +21,7 @@ class PhraseFeature(object):
     def cal_pmi_pkl(self, phrase, candidate_phrase_dict, all_phrase_freq_sum):
         """
         将短语根据概率计算切分为左右两部分, 并计算短语PMI 与 PKL
+        PMI scorer tends to favour less frequent cases.
         :param phrase:
         :param candidate_phrase_dict:
         :param all_phrase_freq_sum: 所有短语频次总和
@@ -68,6 +69,7 @@ class PhraseFeature(object):
             # 短语长度
             phrase_word_len = len(phrase_word_list)
 
+            # TODO no need to do, directly phrase_char_len = len(candidate_phrase)
             # 短语字符数量
             phrase_char_len = len(" ".join(phrase_word_list))
 
@@ -88,24 +90,26 @@ class PhraseFeature(object):
             end_pos_dict = context_dict.get("end_pos", {})
             current_pos_dict = context_dict.get("current_pos", {})
 
-            _, _max_current_pos = max(zip(current_pos_dict.values(), current_pos_dict.keys()))
-            if len(_max_current_pos.split()) == 0:
+            # _, _max_current_pos = max(zip(current_pos_dict.values(), current_pos_dict.keys()))
+            _max_current_pos = max(current_pos_dict)
+            max_current_pos_tokens = _max_current_pos.split()
+            if len(max_current_pos_tokens) == 0:
                 print(current_pos_dict, candidate_phrase)
             # 当前短语首位占比最大的词性
-            max_current_start_pos = self.pos_label_dict.get(_max_current_pos.split()[0], -1)
+            max_current_start_pos = self.pos_label_dict.get(max_current_pos_tokens[0], -1)
             # 当前短语末尾占比最大的词性
-            max_current_end_pos = self.pos_label_dict.get(_max_current_pos.split()[-1], -1)
+            max_current_end_pos = self.pos_label_dict.get(max_current_pos_tokens[-1], -1)
 
             # 当前短语前占比最大的词性
             max_pre_pos = -1
             if len(pre_pos_dict) > 0:
-                _, _max_pre_pos = max(zip(pre_pos_dict.values(), pre_pos_dict.keys()))
+                _max_pre_pos = max(pre_pos_dict)
                 max_pre_pos = self.pos_label_dict.get(_max_pre_pos, -1)
 
             # 当前短语后占比最大的词性
             max_end_pos = -1
             if len(end_pos_dict) > 0:
-                _, _max_end_pos = max(zip(end_pos_dict.values(), end_pos_dict.keys()))
+                _max_end_pos = max(end_pos_dict)
                 max_end_pos = self.pos_label_dict.get(_max_end_pos, -1)
 
             # 短语中是否有重复词
