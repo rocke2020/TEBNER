@@ -3,7 +3,7 @@
 TASK_NAME="bc5cdr"
 
 # 所有数据的根路径
-SOURCE_DIR="data"
+SOURCE_DIR="/home/qcdong/corpus/NER/autoner"
 # 当前任务根路径
 TASK_DIR=$SOURCE_DIR/$TASK_NAME
 

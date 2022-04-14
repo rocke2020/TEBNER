@@ -93,9 +93,9 @@ class Trie(object):
                 continue
 
             for j in range(curr_i + 1, text_len + 1):
-                word = text[curr_i:j]
                 if j < text_len and (text[j].isalpha() or text[j].isdigit()):
                     continue
+                word = text[curr_i:j]
                 if not self.is_prefix(word):
                     break
                 if self.search(word):
@@ -116,4 +116,3 @@ class Trie(object):
 
 if __name__ == "__main__":
     pass
-

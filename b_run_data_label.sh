@@ -3,7 +3,7 @@
 TASK_NAME="bc5cdr"
 
 # 根路径
-ROOT_DIR=""
+ROOT_DIR="/home/qcdong/corpus/NER/autoner"
 # 任务根路径
 TASK_DATA_DIR=$ROOT_DIR/${TASK_NAME}
 # 格式化数据路径
