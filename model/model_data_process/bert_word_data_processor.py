@@ -104,7 +104,7 @@ class BERTWordProcessor(BaseDataProcessor):
                         continue
 
                     # 获取实体在token列表中的首尾位置
-                    entity_token_begin, entity_token_end = self.get_entity_token_pos(entity_obj, content)
+                    entity_token_begin, entity_token_end = self.get_entity_token_position(entity_obj, content)
 
                     # 实体所在位置超过序列最大长度则当前实体不打标(-2是考虑了[CLS]和[SEP]的位置)
                     if entity_token_end >= self.model_config.max_seq_len - 2:

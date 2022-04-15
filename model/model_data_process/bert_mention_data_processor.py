@@ -41,7 +41,7 @@ class BERTMentionDataProcessor(BaseDataProcessor):
 
             for entity_obj in entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(entity_obj, content)
                 # 实体所在位置超过序列最大长度则当前实体不打标
                 if token_end >= self.model_config.max_seq_len - 2:
                     continue
@@ -111,7 +111,7 @@ class BERTMentionDataProcessor(BaseDataProcessor):
             # 获取远程标注的实体位置
             for distance_entity_obj in distance_entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(distance_entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(distance_entity_obj, content)
                 # 实体所在位置超过序列最大长度则当前实体不打标
                 if token_end >= self.model_config.max_seq_len - 2:
                     continue
@@ -122,7 +122,7 @@ class BERTMentionDataProcessor(BaseDataProcessor):
             # 获取真实标注的实体位置及类型
             for label_entity_obj in label_entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(label_entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(label_entity_obj, content)
                 # 实体所在位置超过序列最大长度则当前实体不打标
                 if token_end >= self.model_config.max_seq_len - 2:
                     continue
@@ -180,7 +180,7 @@ class BERTMentionDataProcessor(BaseDataProcessor):
             distance_entity_list = split_text_obj["distance_entity_list"]
             for dis_entity_obj in distance_entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(dis_entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(dis_entity_obj, content)
                 # 加[CLS]
                 distance_token_begin_dict[token_begin+1] = (token_begin+1, token_end+1)
                 mention_loc_list.append((token_begin+1, token_end+1))
@@ -200,7 +200,7 @@ class BERTMentionDataProcessor(BaseDataProcessor):
             # 获取真实标注的实体位置及类型
             for label_entity_obj in label_entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(label_entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(label_entity_obj, content)
                 # 实体所在位置超过序列最大长度则当前实体不打标
                 if token_end >= self.model_config.max_seq_len - 2:
                     continue
@@ -254,7 +254,7 @@ class BERTMentionDataProcessor(BaseDataProcessor):
             distance_entity_list = split_text_obj["distance_entity_list"]
             for dis_entity_obj in distance_entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(dis_entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(dis_entity_obj, content)
                 # 加[CLS]
                 distance_token_begin_dict[token_begin + 1] = (token_begin + 1, token_end + 1)
                 pred_sent_entity_dict.setdefault(sent_index, []).append((token_begin + 1, token_end + 1))
@@ -272,7 +272,7 @@ class BERTMentionDataProcessor(BaseDataProcessor):
             # 获取真实标注的实体位置及类型
             for label_entity_obj in label_entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(label_entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(label_entity_obj, content)
                 # 实体所在位置超过序列最大长度则当前实体不打标
                 if token_end >= self.model_config.max_seq_len - 2:
                     continue
@@ -300,7 +300,7 @@ class BERTMentionDataProcessor(BaseDataProcessor):
 
             for entity_obj in entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(entity_obj, content)
                 # 实体所在位置超过序列最大长度则当前实体不打标
                 if token_end >= self.model_config.max_seq_len - 2:
                     continue
@@ -323,6 +323,3 @@ class BERTMentionDataProcessor(BaseDataProcessor):
             all_mention_result_list.append((mention_form, mention_type, str(mention_score), token_mention_form))
 
         return all_mention_result_list
-
-
-

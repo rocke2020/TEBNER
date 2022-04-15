@@ -90,7 +90,7 @@ class BERTSentDataProcessor(BaseDataProcessor):
                     if is_skip_unknown and entity_obj["type"] == "unknown":
                         continue
                     # 获取实体在bert分词后的位置
-                    token_begin, token_end = self.get_entity_token_pos(entity_obj, content)
+                    token_begin, token_end = self.get_entity_token_position(entity_obj, content)
                     # 实体所在位置超过序列最大长度则当前实体不打标
                     if token_end >= self.model_config.max_seq_len - 2:
                         continue
@@ -182,7 +182,7 @@ class BERTSentDataProcessor(BaseDataProcessor):
             entity_list = split_text_obj["entity_list"]
             for entity_obj in entity_list:
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(entity_obj, content)
                 # 实体所在位置超过序列最大长度则当前实体不打标
                 if token_end >= self.model_config.max_seq_len - 2:
                     continue
@@ -213,7 +213,7 @@ class BERTSentDataProcessor(BaseDataProcessor):
             for entity_obj in phrase_trie.search_entity(content):
                 entity_obj["type"] = phrase_type_dict.get(entity_obj["form"], "unknown").lower()
                 # 获取实体在bert分词后的位置
-                token_begin, token_end = self.get_entity_token_pos(entity_obj, content)
+                token_begin, token_end = self.get_entity_token_position(entity_obj, content)
                 # 实体所在位置超过序列最大长度则当前实体不打标
                 if token_end >= self.model_config.max_seq_len - 2:
                     continue
