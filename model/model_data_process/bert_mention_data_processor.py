@@ -61,10 +61,11 @@ class BERTMentionDataProcessor(BaseDataProcessor):
             encoded_dict = self.tokenizer.encode_plus(content, truncation=True, padding="max_length",
                                                       max_length=self.model_config.max_seq_len)
 
-            all_data_list.extend([(encoded_dict["input_ids"], encoded_dict["attention_mask"],
-                                   encoded_dict["token_type_ids"], mention_beg, mention_end, mention_label)
-                                  for (mention_beg, mention_end), mention_label in
-                                  zip(mention_loc_list, mention_label_list)])
+            all_data_list.extend(
+                [(encoded_dict["input_ids"], encoded_dict["attention_mask"],
+                    encoded_dict["token_type_ids"], mention_beg, mention_end, mention_label)
+                    for (mention_beg, mention_end), mention_label in zip(mention_loc_list, mention_label_list)]
+            )
 
         all_input_ids = torch.LongTensor([_[0] for _ in all_data_list])
         all_input_mask = torch.LongTensor([_[1] for _ in all_data_list])

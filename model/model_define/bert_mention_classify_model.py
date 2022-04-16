@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 from transformers import BertModel
 
+
 class BERTMentionClassifyModel(nn.Module):
     """
     BERT Mention分类模型
@@ -23,7 +24,10 @@ class BERTMentionClassifyModel(nn.Module):
         input_ids, token_type_ids, attention_mask, mention_begins, mention_ends = x
         sequence_output, pooled_output = self.bert(input_ids, token_type_ids=token_type_ids,
                                                    attention_mask=attention_mask)
-        # 取mention首尾2个token与[CLS]拼接
+        # 取mention首尾2个token与[CLS]拼接, there is no one step batch to do this sequential operations. 
+        # TODO pytorch batch indexing, my code should be much better
+        # batch_size = sequence_output.shape[0]
+        # begin_embed = sequence_output[range(batch_size), mention_begins]
         begin_embed = torch.cat([torch.index_select(ele, 0, i) for ele, i in zip(sequence_output, mention_begins)])
         end_embed = torch.cat([torch.index_select(ele, 0, i) for ele, i in zip(sequence_output, mention_ends)])
         out = torch.cat([pooled_output, begin_embed, end_embed], dim=-1)
