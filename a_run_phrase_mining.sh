@@ -1,6 +1,6 @@
 
 # 当前任务领域
-TASK_NAME="bc5cdr"
+TASK_NAME="pathway"
 
 # 所有数据的根路径
 SOURCE_DIR="/home/qcdong/corpus/NER/autoner"
@@ -22,8 +22,10 @@ mkdir -p $PHRASE_MODEL_DIR
 mkdir -p $PHRASE_RESULT_DIR
 
 # 训练PhraseMining模型所需数据
-PHRASE_TRAIN_ENTITY_PATH=$SOURCE_DIR/common_data/final_dict.txt
-PHRASE_TRAIN_RAW_TEXT_PATH=$SOURCE_DIR/pubmed/pubmed_phrase_sent
+# PHRASE_TRAIN_ENTITY_PATH=$SOURCE_DIR/common_data/final_dict.txt
+# PHRASE_TRAIN_RAW_TEXT_PATH=$SOURCE_DIR/pubmed/pubmed_phrase_sent
+PHRASE_TRAIN_ENTITY_PATH=$SOURCE_DIR/dictionary.json
+PHRASE_TRAIN_RAW_TEXT_PATH=$SOURCE_DIR/pubmed/pubmed_sentences.txt
 
 ###########任务相关数据###########
 # 待挖掘的自由文本数据
