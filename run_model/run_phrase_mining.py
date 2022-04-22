@@ -35,6 +35,7 @@ class PhraseMining(object):
         text_obj_list = []
         for index, text in enumerate(all_raw_text_list):
             # 切词
+            # TreebankWordTokenizer suits, as it keeps the mid dot to the word, except for the last dot in sentence.
             token_list = TreebankWordTokenizer().tokenize(text)
             # 词性标注
             token_pos = nltk.pos_tag(token_list)
