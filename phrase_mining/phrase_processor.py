@@ -3,7 +3,7 @@
 import json
 import itertools
 from gensim.models import KeyedVectors
-
+from collections import defaultdict
 from phrase_mining.data_util import DataUtil
 from util.log_util import LogUtil
 
@@ -28,6 +28,7 @@ class PhraseProcessor(object):
         # 按顺序统计1-gram, 2-gram, ..., n-gram
         for phrase_len in range(1, self.config.MAX_PHRASE_LEN+1):
             gram_phrase_dict = {}
+            # gram_phrase_dict = defaultdict(dict)
             for count_ind, text_obj in enumerate(cut_pos_data_list):
                 text_id = text_obj["text_id"]
 
@@ -65,6 +66,7 @@ class PhraseProcessor(object):
                     # 存储phrase原始形式
                     gram_phrase_dict[phrase]["original_phrase"] = \
                         gram_phrase_dict.setdefault(phrase, {}).setdefault("original_phrase", original_phrase)
+                    # gram_phrase_dict[phrase]["original_phrase"] = original_phrase
 
                     # 统计当前短语的词性信息
                     current_phrase_pos = " ".join(word_pos_list[begin_index:begin_index + phrase_len]).strip()
@@ -188,6 +190,7 @@ class PhraseProcessor(object):
         positive_phrase_dict = {}
         negative_phrase_dict = {}
         for phrase, fea_dict in phrase_fea_dict.items():
+            ## TODO phrases in seed_entity_dict need to delete ' '?
             if phrase.replace(" ", "") in seed_entity_dict:
                 positive_phrase_dict[phrase] = fea_dict
             else:

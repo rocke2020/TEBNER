@@ -1,9 +1,7 @@
-
-# 当前任务领域
-TASK_NAME="pathway"
-
 # 所有数据的根路径
 SOURCE_DIR="/home/qcdong/corpus/NER/autoner"
+# 当前任务领域
+TASK_NAME="pathway"
 # 当前任务根路径
 TASK_DIR=$SOURCE_DIR/$TASK_NAME
 
@@ -22,10 +20,8 @@ mkdir -p $PHRASE_MODEL_DIR
 mkdir -p $PHRASE_RESULT_DIR
 
 # 训练PhraseMining模型所需数据
-# PHRASE_TRAIN_ENTITY_PATH=$SOURCE_DIR/common_data/final_dict.txt
-# PHRASE_TRAIN_RAW_TEXT_PATH=$SOURCE_DIR/pubmed/pubmed_phrase_sent
-PHRASE_TRAIN_ENTITY_PATH=$SOURCE_DIR/dictionary.json
-PHRASE_TRAIN_RAW_TEXT_PATH=$SOURCE_DIR/pubmed/pubmed_sentences.txt
+PHRASE_TRAIN_ENTITY_PATH=$SOURCE_DIR/common_data/final_dict.txt
+PHRASE_TRAIN_RAW_TEXT_PATH=$SOURCE_DIR/pubmed/pubmed_phrase_sent
 
 ###########任务相关数据###########
 # 待挖掘的自由文本数据
@@ -69,8 +65,10 @@ TEXT_FORMAT_PATH=$FORMAT_DIR/text_format
 LOG_FILE="phrase_test"
 
 # do_write_inter_result 开关变量 表示是否将中间结果写入文本中
+# --do_test \
 nohup python -u run_model/run_phrase_mining.py \
-  --do_test \
+  --do_train \
+  --do_write_inter_result \
   --task_name=$TASK_NAME \
   --phrase_train_entity_path=$PHRASE_TRAIN_ENTITY_PATH \
   --phrase_train_raw_text_path=$PHRASE_TRAIN_RAW_TEXT_PATH \

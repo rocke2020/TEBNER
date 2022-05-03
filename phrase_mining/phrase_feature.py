@@ -69,9 +69,9 @@ class PhraseFeature(object):
             # 短语长度
             phrase_word_len = len(phrase_word_list)
 
-            # TODO no need to do, directly phrase_char_len = len(candidate_phrase)
+            # As tokenizer always delete continuously blanks, directly phrase_char_len = len(candidate_phrase)
             # 短语字符数量
-            phrase_char_len = len(" ".join(phrase_word_list))
+            phrase_char_len = len(candidate_phrase)
 
             # 频次
             phrase_freq = math.log2(context_dict.get("freq", 0) + 1)

@@ -26,6 +26,7 @@ class EntityLabel(object):
         # 对phrase中的相关符号前后的空格去电
         all_phrase_list = [phrase.replace(" - ", "-").replace("( ", "(").replace(" )", ")").replace(" ,", ",")
                            for phrase in all_phrase_list]
+        # If only one word, not change to lower case, that's not convert phrase 'CRH' to 'crh'
         lower_phrase_list = [phrase.lower() for phrase in all_phrase_list if len(phrase.split()) > 1]
         upper_phrase_list = [phrase.upper() for phrase in all_phrase_list]
         all_phrase_list = all_phrase_list + lower_phrase_list + upper_phrase_list
