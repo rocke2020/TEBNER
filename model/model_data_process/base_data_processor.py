@@ -25,7 +25,6 @@ class BaseDataProcessor(object):
         for split_index, split_content in enumerate(split_content_list):
             split_content = split_content + ". "
             next_content_offset = current_content_offset + len(split_content)
-            # TODO directly use text_obj["entity_list"], not need to create label_entity_list
             label_entity_list = []
             for entity_obj in text_obj["entity_list"]:
                 if current_content_offset <= entity_obj["offset"] < next_content_offset:
