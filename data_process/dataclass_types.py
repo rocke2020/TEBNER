@@ -11,6 +11,7 @@ class Entity:
     offset: the start index; 
     length: the form length;  
 
+    firstly mentioned in util\trie_en.py.
     used in 
         data_process/entity_label.py
         model/model_data_process/base_data_processor.py, get_entity_token_pos

@@ -73,10 +73,11 @@ class BERTMentionProcess(object):
                 optimizer.step()
                 scheduler.step()
 
+                total_batch += 1
                 # 每多少轮输出在训练集和验证集上的效果
                 if total_batch % self.model_config.per_eval_batch_step == 0:
                     # torch.max返回一个元组（最大值列表, 最大值对应的index列表）
-                    pred_ids = torch.max(outputs.data, axis=1)[1]
+                    pred_ids = torch.argmax(outputs.data, dim=1)
                     label_id_data = label_ids.data
                     total = label_id_data.size(0)
                     correct = (pred_ids == label_id_data).sum().item()
@@ -94,7 +95,7 @@ class BERTMentionProcess(object):
                     LogUtil.logger.info(msg.format(total_batch, loss.item(), train_acc,
                                                    dev_loss, dev_acc, improve))
                     model.train()
-                total_batch += 1
+                
                 if total_batch - last_improve > self.model_config.require_improvement:
                     # 验证集loss超过require_improvement没下降，结束训练
                     LogUtil.logger.info("No optimization for a long time, auto-stopping...")
@@ -214,6 +215,3 @@ class BERTMentionProcess(object):
         LogUtil.logger.info(metric_result_dict)
 
         return metric_result_dict
-
-
-
