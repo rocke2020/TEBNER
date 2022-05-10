@@ -1,9 +1,9 @@
 # 所有数据的根路径
-SOURCE_DIR="/home/qcdong/corpus/NER/autoner"
+ROOT_DIR="/home/qcdong/corpus/NER/autoner"
 # 当前任务领域
 TASK_NAME="pathway"
 # 当前任务根路径
-TASK_DIR=$SOURCE_DIR/$TASK_NAME
+TASK_DIR=$ROOT_DIR/$TASK_NAME
 
 # 短语挖掘相关目录
 PHRASE_DIR=$TASK_DIR/phrase
@@ -20,8 +20,8 @@ mkdir -p $PHRASE_MODEL_DIR
 mkdir -p $PHRASE_RESULT_DIR
 
 # 训练PhraseMining模型所需数据
-PHRASE_TRAIN_ENTITY_PATH=$SOURCE_DIR/common_data/final_dict.txt
-PHRASE_TRAIN_RAW_TEXT_PATH=$SOURCE_DIR/pubmed/pubmed_phrase_sent
+PHRASE_TRAIN_ENTITY_PATH=$ROOT_DIR/common_data/final_dict.txt
+PHRASE_TRAIN_RAW_TEXT_PATH=$ROOT_DIR/pubmed/pubmed_phrase_sent
 
 ###########任务相关数据###########
 # 待挖掘的自由文本数据
@@ -31,13 +31,13 @@ SOURCE_DATA_PATH=$TASK_DIR/source_data/all.json
 SEED_ENTITY_PATH=$TASK_DIR/source_data/${TASK_NAME}_dict.txt
 
 # 词向量文件
-WORD_VEC_PATH=$SOURCE_DIR/word2vec/wikipedia-pubmed-and-PMC-w2v.bin
+WORD_VEC_PATH=$ROOT_DIR/word2vec/wikipedia-pubmed-and-PMC-w2v.bin
 # 停用词
-STOPWORD_PATH=$SOURCE_DIR/common_data/stopwords-en.txt
+STOPWORD_PATH=$ROOT_DIR/common_data/stopwords-en.txt
 # 标点符号
-SYMBOL_PATH=$SOURCE_DIR/common_data/symbol.txt
+SYMBOL_PATH=$ROOT_DIR/common_data/symbol.txt
 # 词性标签
-POS_LABEL_PATH=$SOURCE_DIR/common_data/pos_label.txt
+POS_LABEL_PATH=$ROOT_DIR/common_data/pos_label.txt
 
 ###########模型参数###########
 # 短语最大长度(包含词语数量)
